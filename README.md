@@ -51,3 +51,10 @@ Apache Licence v2 [2]
 [1] http://slurm.schedmd.com/
 
 [2] http://www.apache.org/licenses/LICENSE-2.0
+
+Credits
+-------
+
+Originally forked from indigo-dc/slurm role.
+Modified by Darryl Weaver.
+
