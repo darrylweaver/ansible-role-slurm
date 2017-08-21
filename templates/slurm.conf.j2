@@ -49,19 +49,25 @@ ReturnToService=1
 {% if ansible_distribution == "Ubuntu" and ansible_distribution_major_version == "16" %}
 SlurmctldPidFile=/var/run/slurm-llnl/slurmctld.pid
 SlurmdPidFile=/var/run/slurm-llnl/slurmd.pid
+SlurmctldLogFile=/var/log/slurm-llnl/slurmctld.log
+SlurmdLogFile=/var/log/slurm-llnl/slurmd.log
+SlurmdSpoolDir=/var/lib/slurm-llnl/slurmd
+StateSaveLocation=/var/lib/slurm-llnl/checkpoint
 {% else %}
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmdPidFile=/var/run/slurmctld.pid
+SlurmctldLogFile=/tmp/slurmctld.log
+SlurmdLogFile=/tmp/slurmd.log
+SlurmdSpoolDir=/tmp/slurmd
+StateSaveLocation=/tmp
 {% endif %}
 
 SlurmctldPort=6817
 SlurmdPort=6818
-SlurmdSpoolDir=/tmp/slurmd
 SlurmUser=slurm
 #SlurmdUser=root 
 #SrunEpilog=
 #SrunProlog=
-StateSaveLocation=/tmp
 SwitchType=switch/none
 #TaskEpilog=
 TaskPlugin=task/none
@@ -144,9 +150,9 @@ JobCompType=jobcomp/none
 JobAcctGatherFrequency=30
 JobAcctGatherType=jobacct_gather/none
 SlurmctldDebug=4
-SlurmctldLogFile=/tmp/slurmctld.log
+SlurmctldLogFile=/var/log/slurmctld.log
 SlurmdDebug=4
-SlurmdLogFile=/tmp/slurmd.log
+SlurmdLogFile=/var/log/slurmd.log
 #SlurmSchedLogFile= 
 #SlurmSchedLogLevel= 
 # 
