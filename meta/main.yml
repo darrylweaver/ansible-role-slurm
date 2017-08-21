@@ -1,20 +1,17 @@
 galaxy_info:
-  author: Miguel Caballer
+  author: Darryl Weaver
   description: Install SLURM cluster
-  company:  INDIGO-DataCloud
+  company:  Stack Evolution
   license: Apache
   min_ansible_version: 1.8
   platforms:
   - name: EL
     versions:
-    - 6
     - 7  
   - name: Ubuntu
     versions:
-    - trusty
+    - xenial
   galaxy_tags:
     - slurm
     - lrms
-dependencies:
-  - { role: 'grycap.ntp', ntp_config_server: [ntp.upv.es, ntp.uv.es] }
 

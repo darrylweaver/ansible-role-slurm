@@ -1,7 +1,12 @@
 SLURM cluster Role 
 =======================
 
-Install SLURM cluster [1]. This role has been specifically developed to be used in the INDIGO project.
+Install SLURM cluster [1]. This role is for deploying Slurm on controller and worker nodes.
+
+Dependencies
+------------
+
+This role requires an NTP client to sync the time on all nodes.  Many suitable clients can be used.
 
 Role Variables
 --------------
@@ -9,34 +14,34 @@ Role Variables
 The variables that can be passed to this role and a brief description about them are as follows.
 
 	# SLURM version to install (in case of RH systems)
-	slurm_version: 14.11.3
-	# Type of node to install: front or wn
-	slurm_type_of_node: front
-	# Name of the SLURM server
-	slurm_server_name: slurmserver
-	# IP address of the SLURM server
-	slurm_server_ip: 127.0.0.1
+	slurm_version: 16.05.8
+	# Type of node to install: controller or worker
+	slurm_type_of_node: controller
+	# Name of the SLURM controller
+	slurm_controller_name: slurmserver
+	# IP address of the SLURM controller
+	slurm_controller_ip: 127.0.0.1
 	# Prefix to set to the SLURM working nodes
 	slurm_vnode_prefix: vnode-
-	# List of IPs of the WNs
-	slurm_wn_ips: []
-	# List of the name of the WNs
-	slurm_wn_nodenames: []
+	# List of IPs of the Worker Nodes (WNs)
+	slurm_worker_ips: []
+	# List of the name of the WNs (use short hostname)
+	slurm_worker_nodenames: []
 	# Number of CPUs of the WNs
-	slurm_wn_cpus: 1
+	slurm_worker_cpus: 1
 
 Example Playbook
 ----------------
 
-This an example of how to install a Torque/PBS cluster:
+This an example of how to install a SLURM cluster:
 
-    - hosts: server
+    - hosts: controller
       roles:
-      - { role: 'indigo-dc.slurm', slurm_type_of_node: 'front', slurm_server_ip: '{{ansible_default_ipv4}}', slurm_wn_nodenames: "{{ groups['wns']|map('extract', hostvars, 'ansible_hostname')|list }}" }
+      - { role: 'darrylweaver.slurm', slurm_type_of_node: 'controller', slurm_server_ip: '{{ansible_default_ipv4}}', slurm_worker_nodenames: "{{ groups['wns']|map('extract', hostvars, 'ansible_hostname')|list }}" }
 
-    - hosts: wns
+    - hosts: workers
       roles:
-      - { role: 'indigo-dc.slurm', slurm_type_of_node: 'wn', slurm_server_ip: "{{hostvars['server']['ansible_default_ipv4']}}" }
+      - { role: 'darrylweaver.slurm', slurm_type_of_node: 'worker', slurm_server_ip: "{{hostvars['server']['ansible_default_ipv4']}}" }
 
 License
 -------
