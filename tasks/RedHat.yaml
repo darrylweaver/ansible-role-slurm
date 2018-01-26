@@ -17,6 +17,12 @@
       command: rpm -Uvh ~/rpmbuild/RPMS/x86_64/*.rpm chdir=/tmp creates=/etc/init.d/slurm
 
     - set_fact: SLURM_CONF="/etc/slurm/slurm.conf"  SLURM_SERVICE="slurm"
+
+    - set_fact: SLURM_SERVICE="slurmd"
+      when: ansible_os_family == "RedHat" and slurm_type_of_node == "worker"
+
+    - set_fact: SLURM_SERVICE="slurmctld"
+      when: ansible_os_family == "RedHat" and slurm_type_of_node == "controller"
   
     - name: create slurm user and group
       user: name=slurm shell=/bin/bash system=yes
