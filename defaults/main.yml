@@ -15,6 +15,9 @@ slurm_worker_ips: []
 slurm_worker_nodenames: []
 # Number of CPUs of the WNs
 slurm_worker_cpus: 1
+slurm_worker_sockets: 2
+slurm_worker_cores_per_socket: 10
+slurm_worker_threads_per_core: 2
 # Password used to derive a munge key for authentication between the server and the workers
 slurm_password: Tfqy5DqdSIMW3olGLK6Qt6S3
 #Slurm partition name

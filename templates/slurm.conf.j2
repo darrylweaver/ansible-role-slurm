@@ -169,10 +169,10 @@ SlurmdDebug=4
 # 
 # COMPUTE NODES 
 {% if slurm_worker_nodenames %}
-NodeName={{ slurm_worker_nodenames | join(",") }} CPUs={{ slurm_worker_cpus }} State=UNKNOWN
+NodeName={{ slurm_worker_nodenames | join(",") }} CPUs={{ slurm_worker_cpus }} Sockets={{ slurm_worker_sockets }} CoresPerSocket={{ slurm_worker_cores_per_socket }} ThreadsPerCore={{ slurm_worker_threads_per_core }} State=UNKNOWN
 PartitionName={{slurm_partition_name}} Nodes={{ slurm_worker_nodenames | join(",") }} Default=YES MaxTime=INFINITE State=UP
 {% elif slurm_worker_ips %}
-NodeName={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] CPUs={{ slurm_worker_cpus }} State=UNKNOWN
+NodeName={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] CPUs={{ slurm_worker_cpus }} Sockets={{ slurm_worker_sockets }} CoresPerSocket={{ slurm_worker_cores_per_socket }} ThreadsPerCore={{ slurm_worker_threads_per_core }} State=UNKNOWN
 PartitionName={{slurm_partition_name}} Nodes={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] Default=YES MaxTime=INFINITE State=UP
 {% else %}
 NodeName=localhost CPUs=1 State=UNKNOWN 
