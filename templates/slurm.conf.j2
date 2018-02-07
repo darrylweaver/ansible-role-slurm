@@ -170,11 +170,11 @@ SlurmdDebug=4
 # COMPUTE NODES 
 {% if slurm_worker_nodenames %}
 NodeName={{ slurm_worker_nodenames | join(",") }} CPUs={{ slurm_worker_cpus }} State=UNKNOWN
-PartitionName=debug Nodes={{ slurm_worker_nodenames | join(",") }} Default=YES MaxTime=INFINITE State=UP
+PartitionName={{slurm_partition_name}} Nodes={{ slurm_worker_nodenames | join(",") }} Default=YES MaxTime=INFINITE State=UP
 {% elif slurm_worker_ips %}
 NodeName={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] CPUs={{ slurm_worker_cpus }} State=UNKNOWN
-PartitionName=debug Nodes={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] Default=YES MaxTime=INFINITE State=UP
+PartitionName={{slurm_partition_name}} Nodes={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] Default=YES MaxTime=INFINITE State=UP
 {% else %}
 NodeName=localhost CPUs=1 State=UNKNOWN 
-PartitionName=debug Nodes=localhost Default=YES MaxTime=INFINITE State=UP
+PartitionName={{slurm_partition_name}} Nodes=localhost Default=YES MaxTime=INFINITE State=UP
 {% endif %}

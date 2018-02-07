@@ -17,3 +17,5 @@ slurm_worker_nodenames: []
 slurm_worker_cpus: 1
 # Password used to derive a munge key for authentication between the server and the workers
 slurm_password: Tfqy5DqdSIMW3olGLK6Qt6S3
+#Slurm partition name
+slurm_partition_name: debug

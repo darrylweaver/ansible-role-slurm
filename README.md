@@ -29,6 +29,8 @@ The variables that can be passed to this role and a brief description about them
 	slurm_worker_nodenames: []
 	# Number of CPUs of the WNs
 	slurm_worker_cpus: 1
+        # Partition Name
+        slurm_partition_name: debug
 
 Example Playbook
 ----------------
