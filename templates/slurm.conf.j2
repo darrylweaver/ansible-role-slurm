@@ -15,8 +15,8 @@ CryptoType=crypto/munge
 #EnforcePartLimits=NO 
 #Epilog=/usr/local/slurm/epilog_controller
 #EpilogSlurmctld=/usr/local/slurm/epilog_controller
-FirstJobId=1 
-#MaxJobId=999999 
+FirstJobId=10000 
+MaxJobId=99999 
 #GresTypes= 
 #GroupUpdateForce=0 
 #GroupUpdateTime=600 
@@ -55,7 +55,7 @@ SlurmdSpoolDir=/var/lib/slurm-llnl/slurmd
 StateSaveLocation=/var/lib/slurm-llnl/checkpoint
 {% else %}
 SlurmctldPidFile=/var/run/slurmctld.pid
-SlurmdPidFile=/var/run/slurmctld.pid
+SlurmdPidFile=/var/run/slurmd.pid
 SlurmctldLogFile=/tmp/slurmctld.log
 SlurmdLogFile=/tmp/slurmd.log
 SlurmdSpoolDir=/tmp/slurmd
@@ -111,8 +111,8 @@ FastSchedule=1
 #SchedulerTimeSlice=30 
 SchedulerType=sched/backfill
 SchedulerPort=7321
-SelectType=select/linear
-#SelectTypeParameters=
+SelectType=select/cons_res
+SelectTypeParameters=CR_CPU
 # 
 # 
 # JOB PRIORITY 
@@ -169,12 +169,12 @@ SlurmdDebug=4
 # 
 # COMPUTE NODES 
 {% if slurm_worker_nodenames %}
-NodeName={{ slurm_worker_nodenames | join(",") }} CPUs={{ slurm_worker_cpus }} Sockets={{ slurm_worker_sockets }} CoresPerSocket={{ slurm_worker_cores_per_socket }} ThreadsPerCore={{ slurm_worker_threads_per_core }} State=UNKNOWN
+NodeName={{ slurm_worker_nodenames | join(",") }} CPUs={{ slurm_worker_cpus }} Sockets={{ slurm_worker_sockets }} CoresPerSocket={{ slurm_worker_cores_per_socket }} ThreadsPerCore={{ slurm_worker_threads_per_core }}
 PartitionName={{slurm_partition_name}} Nodes={{ slurm_worker_nodenames | join(",") }} Default=YES MaxTime=INFINITE State=UP
 {% elif slurm_worker_ips %}
-NodeName={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] CPUs={{ slurm_worker_cpus }} Sockets={{ slurm_worker_sockets }} CoresPerSocket={{ slurm_worker_cores_per_socket }} ThreadsPerCore={{ slurm_worker_threads_per_core }} State=UNKNOWN
+NodeName={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] CPUs={{ slurm_worker_cpus }} Sockets={{ slurm_worker_sockets }} CoresPerSocket={{ slurm_worker_cores_per_socket }} ThreadsPerCore={{ slurm_worker_threads_per_core }}
 PartitionName={{slurm_partition_name}} Nodes={{slurm_vnode_prefix}}[1-{{slurm_worker_ips|length}}] Default=YES MaxTime=INFINITE State=UP
 {% else %}
-NodeName=localhost CPUs=1 State=UNKNOWN 
+NodeName=localhost CPUs=1
 PartitionName={{slurm_partition_name}} Nodes=localhost Default=YES MaxTime=INFINITE State=UP
 {% endif %}
