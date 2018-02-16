@@ -56,10 +56,10 @@ StateSaveLocation=/var/lib/slurm-llnl/checkpoint
 {% else %}
 SlurmctldPidFile=/var/run/slurmctld.pid
 SlurmdPidFile=/var/run/slurmd.pid
-SlurmctldLogFile=/tmp/slurmctld.log
-SlurmdLogFile=/tmp/slurmd.log
-SlurmdSpoolDir=/tmp/slurmd
-StateSaveLocation=/tmp
+SlurmctldLogFile=/var/log/slurmctld.log
+SlurmdLogFile=/var/log/slurmd.log
+SlurmdSpoolDir=/var/spool/slurm
+StateSaveLocation=/var/spool/slurm
 {% endif %}
 
 SlurmctldPort=6817
